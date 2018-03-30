@@ -2,31 +2,6 @@
 Use objects for btc/ip properties and functions
 Learn async/promises so that elements don't have to be refreshed by the dataFetch function */
 
-var unix = Math.round(+new Date()/1000); // Get a UNIX timestamp
-
-function pageLoad() {
-    var diff = (unix - localStorage.getItem('timestamp'));
-    
-    if (diff > 120) {
-        getBTCData();
-        getIPData(); // Run the dataFetch function (last data is over 120 seconds old)
-        console.log("Data > 120 seconds old : FETCHING NEW DATA");
-    } else {
-        ipRefresh(ipProperties.id); // Don't update the IP address and display what is in storage
-        btcRefresh(btcProperties.id);
-        console.log("Data < 120 seconds old : NOT UPDATING");
-    }
-
-    //THEME THIS SHOULD BE MOVED
-    if (localStorage.getItem('theme') == null) {
-        // No theme has been selected, nothing needs to switch
-        themeSwitch('dark');
-    } else {
-        themeSwitch(localStorage.getItem('theme'));
-    }
-
-}
-
 var btcProperties = {
     url: "https://api.coindesk.com/v1/bpi/currentprice.json",
     id: "btcData",
