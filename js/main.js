@@ -27,12 +27,10 @@ function pageLoad () {
     var diff = (unix - localStorage.getItem('timestamp'));
     
     if (diff > 120) {
-        getBTCData();
-        getIPData(); // Run the dataFetch function (last data is over 120 seconds old)
+        getData(); // Run the dataFetch function (last data is over 120 seconds old)
         console.log("Data > 120 seconds old : FETCHING NEW DATA");
     } else {
-        ipRefresh(ipProperties.id); // Don't update the IP address and display what is in storage
-        btcRefresh(btcProperties.id);
+        dataRefresh(); // Don't update the data and display what is in storage
         console.log("Data < 120 seconds old : NOT UPDATING");
     }
 
