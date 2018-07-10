@@ -10,8 +10,10 @@ var api = {
 }
 var vpnHostname = [
     "London Trust Media", // PIA
+    "LogicWeb Inc", // PIA
 ]
 var vpnAlias = [
+    "PIA VPN", // PIA
     "PIA VPN", // PIA
 ]
 

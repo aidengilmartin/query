@@ -5,20 +5,32 @@ function search() {
   if (searchBox.value != "") {
     searchBox.value = ""; // Clear the box incase the user goes back
 
-    if (isURL(query) == false) { // User has not entered a valid URL
-      window.location.assign("https://duckduckgo.com/?q=" + query); // Search DuckDuckGo
-    } else if (isURL(query) == true) { // User has entered a valid URL
-      if (protoCheck(query) == true) { // URL does include protocol
+    if (isURL(query) == false) { // Not a valid URL
+      if (isDDG(query) == false) { // Searching with Google
+        window.location.assign("https://www.google.co.uk/search?hl=en&q=" + query); // Search DuckDuckGo
+      } else if (isDDG(query) == true) { // Searching with DDG
+        query = query.slice(3);
+        window.location.assign("https://duckduckgo.com/?q=" + query);
+      }
+    } else if (isURL(query) == true) { // Valid URL
+      if (protoCheck(query) == true) { // Includes protocol
         window.location.assign(query);
-      } else if (protoCheck(query) == false) { // URl does not include protocol
+      } else if (protoCheck(query) == false) { // No protocol
         window.location.assign("http://" + query); // Add a protocol (HTTP) (This assumes that any sites will do a protocol redirect if needed)
       }
     }
-
   } else {
-    console.log("Nothing entered into search box");
+    console.log("No entry");
   }
 
+}
+
+function isDDG(str) {
+  if (str.startsWith("!d ")) { // DuckDuckGo search
+    return true;
+  } else {
+    return false;
+  }
 }
 
 function isURL(str) { // https://stackoverflow.com/a/45567717
@@ -34,8 +46,6 @@ function isURL(str) { // https://stackoverflow.com/a/45567717
 
 function protoCheck(str) {
   if (str.startsWith("https://") || str.startsWith("http://")) { // HTTPS or HTTP is present
-    return true;
-  } else if (str.startsWith("file:///")) { // Link is to a local file (THIS DOES NOT WORK!!!!!!!!!!!!!!)
     return true;
   } else {
     return false; // No protocol matched
