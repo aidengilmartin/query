@@ -11,7 +11,7 @@ An informative but simple start page.
 
 ### Usage
 
-  - Edit index.html using the existing shortcuts as a guide to change it to your preference.https://aidengilmartin.github.io/query/
+  - Edit index.html using the existing shortcuts as a guide to change it to your preference.
   - Open index.html
 
 ### To-do
